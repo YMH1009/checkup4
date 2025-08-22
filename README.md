@@ -1,3 +1,5 @@
+
+
 <head>
     <meta charset="UTF-8" />
     <title>健檢流程控制台</title>
@@ -22,7 +24,7 @@
         }
 
         .btn {
-            width: 140px;
+            width: 120px;
             height: 60px;
             font-size: 16px;
             font-weight: bold;
@@ -309,7 +311,7 @@
         }
 
         .basic-checkup-input {
-            width: 100px;
+            width: 120px;
             padding: 8px;
             font-size: 14px;
             border: 1px solid #ccc;
@@ -318,13 +320,15 @@
         }
 
         .basic-checkup-confirm {
-            padding: 8px 15px;
+            width: 60px;
+            height: 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
             background: #007bff;
             color: white;
-            border: none;
-            border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
         }
 
         .basic-checkup-confirm:hover {
@@ -332,13 +336,15 @@
         }
 
         .basic-checkup-correct {
-            padding: 8px 15px;
+            width: 60px;
+            height: 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
             background: #FF8C00;
             color: white;
-            border: none;
-            border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
         }
 
         .basic-checkup-correct:hover {
@@ -393,24 +399,40 @@
         }
 
         .input-section button {
-            padding: 8px 20px;
-            background: #007bff;
-            color: white;
+            width: 60px;
+            height: 35px;
+            font-size: 16px;
+            font-weight: bold;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
         }
 
-        .input-section button:hover {
+        .input-section .confirm-btn {
+            background: #007bff;
+            color: white;
+        }
+
+        .input-section .confirm-btn:hover {
             background: #0056b3;
         }
 
         .input-section .correct-btn {
             background: #FF8C00;
+            color: white;
         }
 
         .input-section .correct-btn:hover {
             background: #e07b00;
+        }
+
+        .input-section .ap-btn {
+            background: #FF69B4;
+            color: white;
+        }
+
+        .input-section .ap-btn:hover {
+            background: #FF1493;
         }
 
         .info-display {
@@ -431,7 +453,7 @@
         }
 
         .c13-input {
-            width: 100px;
+            width: 120px;
             padding: 8px;
             font-size: 14px;
             border: 1px solid #ccc;
@@ -440,13 +462,15 @@
         }
 
         .c13-confirm {
-            padding: 8px 15px;
+            width: 60px;
+            height: 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
             background: #007bff;
             color: white;
-            border: none;
-            border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
         }
 
         .c13-confirm:hover {
@@ -454,17 +478,38 @@
         }
 
         .c13-correct {
-            padding: 8px 15px;
+            width: 60px;
+            height: 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
             background: #FF8C00;
             color: white;
-            border: none;
-            border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
         }
 
         .c13-correct:hover {
             background: #e07b00;
+        }
+
+        .special-operations {
+            border: 2px solid #6A5ACD;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 900px;
+            background: linear-gradient(135deg, #F0F0FF, #F8F8FF);
+            box-shadow: 0 4px 15px rgba(106, 90, 205, 0.2);
+        }
+
+        .special-operations h3 {
+            color: #483D8B;
+            font-size: 18px;
+            text-align: center;
+            border-bottom: 2px solid #6A5ACD;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -477,8 +522,9 @@
             <input type="text" inputmode="numeric" id="barcodeInput" placeholder="輸入條碼號碼">
             <input type="text" inputmode="numeric" id="serialInput" placeholder="輸入流水號">
             <input type="number" id="ageInput" placeholder="輸入年齡" min="0" max="150">
-            <button onclick="confirmInputs()">確定</button>
+            <button class="confirm-btn" onclick="confirmInputs()">確定</button>
             <button class="correct-btn" onclick="correctInputs()">更改</button>
+            <button class="ap-btn" onclick="applyAP()">AP</button>
         </div>
         <div id="infoDisplayPage1" class="info-display"></div>
         <canvas id="barcodePage1" class="barcode-container"></canvas>
@@ -503,14 +549,14 @@
             <div class="option">
                 <button class="btn" id="opt6" onclick="toggleOption(this)">乳房超音波</button>
             </div>
-            <div class="option">
-                <button class="btn" id="opt7" onclick="toggleOption(this)">HRV</button>
-            </div>
-            <div class="option">
-                <button class="btn" id="opt8" onclick="toggleOption(this)">眼底攝影</button>
-            </div>
-            <div class="option">
-                <button class="btn" id="opt9" onclick="toggleOption(this)">ABI</button>
+        </div>
+
+        <div style="margin-top:20px;">
+            <h3>特殊作業</h3>
+            <div class="package-section">
+                <button class="btn" id="specialRadiation" onclick="toggleSpecial(this)">03游離輻射</button>
+                <button class="btn" id="specialLead" onclick="toggleSpecial(this)">05鉛</button>
+                <button class="btn" id="specialHexane" onclick="toggleSpecial(this)">12正己烷</button>
             </div>
         </div>
 
@@ -685,6 +731,11 @@
             </div>
         </div>
 
+        <div id="specialOperations" class="special-operations hidden">
+            <h3>🔹 特殊作業</h3>
+            <div id="specialItems"></div>
+        </div>
+
         <div class="selected-options">
             <h3>🔹 公費項目 (選2)</h3>
             <div id="selectedOptions"></div>
@@ -704,11 +755,13 @@
 
         <br />
         <button class="btn" onclick="goBack()">返回</button>
+        <button class="btn" style="background-color: red; color: white;" onclick="uploadData()">資料回傳</button>
     </div>
 
     <script>
         let selected = [];
         let selectedButtons = {};
+        let selectedSpecial = [];
         let packageTotals = {
             A: 0,
             B: 0,
@@ -729,6 +782,7 @@
         let inputsLocked = false;
         let c13InputValue = '';
         let c13InputLocked = false;
+        let isAPApplied = false;
 
         const allowedItems = [
             '頸動脈超音波', '眼底攝影', 'C13', 'HRV', '腹部超音波',
@@ -852,6 +906,27 @@
             }
         }
 
+        function applyAP() {
+            isAPApplied = !isAPApplied; // Toggle AP state
+            const xrayBtn = document.getElementById('xray');
+            if (isAPApplied) {
+                document.body.style.background = '#FFC1E0';
+                if (xrayBtn) {
+                    xrayBtn.classList.remove('done', 'recheck');
+                    xrayBtn.classList.add('rejected');
+                    xrayBtn.textContent = xrayBtn.textContent.replace(' ✅', '').replace(' 🚫', '').replace(' 🔄', '') +
+                        ' 🚫';
+                }
+            } else {
+                document.body.style.background = '#f9f9f9';
+                if (xrayBtn) {
+                    xrayBtn.classList.remove('rejected', 'recheck');
+                    xrayBtn.textContent = xrayBtn.textContent.replace(' ✅', '').replace(' 🚫', '').replace(' 🔄', '');
+                }
+            }
+            updateURL();
+        }
+
         function confirmBasicCheckupInput() {
             const inputValue = document.getElementById('basicCheckupInput').value.trim();
             if (inputValue === '' || isNaN(inputValue) || inputValue < 0) {
@@ -899,6 +974,7 @@
                 page: currentPage,
                 selected: selected.join(','),
                 selectedButtons: Object.keys(selectedButtons).join(','),
+                selectedSpecial: selectedSpecial.join(','),
                 packages: Object.keys(packageTotals).filter(k => packageTotals[k] > 0).join(','),
                 pkgItems: [],
                 singleItems: [],
@@ -912,7 +988,8 @@
                 basicCheckup: basicCheckupValue,
                 inputsLocked: inputsLocked ? '1' : '0',
                 c13Input: c13InputValue,
-                c13InputLocked: c13InputLocked ? '1' : '0'
+                c13InputLocked: c13InputLocked ? '1' : '0',
+                apApplied: isAPApplied ? '1' : '0'
             };
             document.querySelectorAll(".pkg-item.selected").forEach(btn => {
                 state.pkgItems.push(btn.id);
@@ -935,6 +1012,15 @@
                 });
                 document.querySelectorAll("#selectedOptions .btn.rejected").forEach(btn => {
                     state.done.push('rejected-' + btn.id);
+                });
+                document.querySelectorAll("#specialItems .btn.done").forEach(btn => {
+                    state.done.push('dynamic-' + btn.id);
+                });
+                document.querySelectorAll("#specialItems .btn.rejected").forEach(btn => {
+                    state.done.push('rejected-' + btn.id);
+                });
+                document.querySelectorAll("#specialItems .btn.recheck").forEach(btn => {
+                    state.recheck.push('recheck-' + btn.id);
                 });
                 document.querySelectorAll("#additionalItems .btn.done").forEach(btn => {
                     state.done.push('dynamic-' + btn.id);
@@ -966,6 +1052,14 @@
             const selectedItems = params.get('selected');
             if (selectedItems) {
                 selected = selectedItems.split(',').filter(s => s);
+            }
+            const selectedSpecialItems = params.get('selectedSpecial');
+            if (selectedSpecialItems) {
+                selectedSpecial = selectedSpecialItems.split(',').filter(s => s);
+                selectedSpecial.forEach(item => {
+                    const btn = document.getElementById(item);
+                    if (btn) btn.classList.add('selected');
+                });
             }
             const selectedBtns = params.get('selectedButtons');
             if (selectedBtns) {
@@ -1034,6 +1128,7 @@
             inputsLocked = params.get('inputsLocked') === '1';
             c13InputValue = params.get('c13Input') || '';
             c13InputLocked = params.get('c13InputLocked') === '1';
+            isAPApplied = params.get('apApplied') === '1';
             if (barcodeValue || serialNumber || age) {
                 document.getElementById('barcodeInput').value = barcodeValue;
                 document.getElementById('serialInput').value = serialNumber;
@@ -1049,8 +1144,18 @@
                 document.getElementById('basicCheckupInput').value = basicCheckupValue;
                 document.getElementById('basicCheckupInput').disabled = true;
             }
-            const doneItems = params.get('done');
-            const recheckItems = params.get('recheck') || '';
+            if (isAPApplied) {
+                document.body.style.background = '#FFC1E0';
+                const xrayBtn = document.getElementById('xray');
+                if (xrayBtn) {
+                    xrayBtn.classList.remove('done', 'recheck');
+                    xrayBtn.classList.add('rejected');
+                    xrayBtn.textContent = xrayBtn.textContent.replace(' ✅', '').replace(' 🚫', '').replace(' 🔄', '') +
+                        ' 🚫';
+                }
+            }
+            const doneItems = params.get('done') ? params.get('done').split(',') : [];
+            const recheckItems = params.get('recheck') ? params.get('recheck').split(',') : [];
             if (doneItems) {
                 doneItems.split(',').forEach(btnId => {
                     if (btnId) {
@@ -1317,6 +1422,17 @@
             updateURL();
         }
 
+        function toggleSpecial(btn) {
+            if (btn.classList.contains("selected")) {
+                btn.classList.remove("selected");
+                selectedSpecial = selectedSpecial.filter(x => x !== btn.id);
+            } else {
+                btn.classList.add("selected");
+                selectedSpecial.push(btn.id);
+            }
+            updateURL();
+        }
+
         function toggleAddons() {
             document.getElementById("addons").classList.toggle("hidden");
             addonsVisible = !document.getElementById("addons").classList.contains("hidden");
@@ -1472,12 +1588,58 @@
 
         function renderSelectedOptions() {
             let selectedBox = document.getElementById("selectedOptions");
+            let specialBox = document.getElementById("specialItems");
             let additionalBox = document.getElementById("additionalItems");
             selectedBox.innerHTML = "";
+            specialBox.innerHTML = "";
             additionalBox.innerHTML = "";
             const params = new URLSearchParams(window.location.search);
             const doneItems = params.get('done') ? params.get('done').split(',') : [];
             const recheckItems = params.get('recheck') ? params.get('recheck').split(',') : [];
+
+            // Handle special operations
+            let hasSpecialItems = false;
+            const specialItems = [];
+            if (selectedSpecial.includes('specialRadiation')) {
+                hasSpecialItems = true;
+                specialItems.push({
+                    text: '肺功能',
+                    id: 'special-LungFunction'
+                });
+            }
+            if (selectedSpecial.includes('specialLead')) {
+                hasSpecialItems = true;
+                specialItems.push({
+                    text: '血中鉛',
+                    id: 'special-BloodLead'
+                });
+            }
+            // 'specialHexane' does not generate a button
+            specialItems.forEach(item => {
+                let btn = document.createElement("button");
+                btn.className = "btn";
+                btn.textContent = item.text;
+                btn.id = item.id;
+                btn.onclick = function () {
+                    markDone(btn);
+                };
+                const btnIdentifier = item.id;
+                if (doneItems.includes('dynamic-' + btnIdentifier) || doneItems.includes(btnIdentifier)) {
+                    btn.classList.add('done');
+                    if (!btn.textContent.includes('✅')) btn.textContent += ' ✅';
+                } else if (doneItems.includes('rejected-' + btnIdentifier)) {
+                    btn.classList.add('rejected');
+                    if (!btn.textContent.includes('🚫')) btn.textContent += ' 🚫';
+                } else if (recheckItems.includes('recheck-' + btnIdentifier)) {
+                    btn.classList.add('recheck');
+                    if (!btn.textContent.includes('🔄')) btn.textContent += ' 🔄';
+                }
+                specialBox.appendChild(btn);
+            });
+            const specialBlock = document.getElementById('specialOperations');
+            specialBlock.style.display = hasSpecialItems ? 'block' : 'none';
+
+            // Handle public items
             let ultrasoundItems = [];
             let otherItems = [];
             selected.forEach(name => {
@@ -1505,6 +1667,8 @@
                 }
                 selectedBox.appendChild(btn);
             });
+
+            // Handle additional items
             let hasAdditionalItems = false;
             let hasC13 = false;
             let additionalUltrasoundItems = [];
@@ -1571,9 +1735,8 @@
                     }
                 }
             }
-            const igeGift = document.getElementById('giftIGE');
-            if (igeGift.classList.contains('auto-selected')) {
-                const igeText = igeGift.textContent;
+            if (document.getElementById('giftIGE').classList.contains('auto-selected')) {
+                const igeText = document.getElementById('giftIGE').textContent;
                 if (isAllowedItem(igeText)) {
                     hasAdditionalItems = true;
                     const igeName = extractItemName(igeText);
@@ -1644,7 +1807,8 @@
             } else if (input === "x") {
                 button.classList.remove("done", "rejected", "recheck");
                 button.textContent = button.textContent.replace(" ✅", "").replace(" 🚫", "").replace(" 🔄", "");
-            } else if (input === "g" && (button.closest('.basic-checkup') || button.closest('#selectedOptions'))) {
+            } else if (input === "g" && (button.closest('.basic-checkup') || button.closest('#selectedOptions') ||
+                    button.closest('#specialOperations'))) {
                 button.classList.remove("done", "recheck");
                 button.classList.add("rejected");
                 button.textContent = button.textContent.replace(" ✅", "").replace(" 🚫", "").replace(" 🔄", "") + " 🚫";
@@ -1659,6 +1823,40 @@
             updateURL();
         }
 
+        function uploadData() {
+            const pwd = prompt('請洽諮詢人員輸入驗證碼');
+            if (!pwd || pwd.toUpperCase() !== 'F') {
+                alert('驗證碼錯誤，請輸入正確的驗證碼！');
+                return;
+            }
+            if (!serialNumber) {
+                alert('請先輸入流水號！');
+                return;
+            }
+            const data = {
+                full_url: window.location.href,
+                barcode: barcodeValue,
+                serial: serialNumber
+            };
+
+            fetch('https://your-server.com/upload', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (response.ok) {
+                    alert('資料上傳成功！');
+                } else {
+                    alert('上傳失敗');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('上傳錯誤');
+            });
+        }
+
         window.onload = function () {
             initSignature();
             loadFromURL();
@@ -1667,3 +1865,4 @@
         }
     </script>
 </body>
+
